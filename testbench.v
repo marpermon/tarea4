@@ -22,11 +22,11 @@ initial begin
   CKP=0;
   CPH=0;
   start_stb = 0;
-  #20 reset = 0;
+  #25 reset = 0;
   #10 reset = 1;
   #20 start_stb = 1;
   #10 start_stb = 0;
-  #2000 $finish;
+  #4000 $finish;
 end
 
 always begin
