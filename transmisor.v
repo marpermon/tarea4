@@ -10,13 +10,12 @@ module transmisor(
   output reg MOSI, CS,reset_rec;
   output     SCK;
 
-  localparam IDLE         = 3'b001;
-  localparam TRANSMISSION = 3'b010;
-  localparam RESETEAR_REC = 3'b100;
+  localparam IDLE         = 2'b01;
+  localparam TRANSMISSION = 2'b10;
   localparam DIV_FREQ = 3;
 
   //Variables intermedias
-  reg [2:0]  estado_trans, prox_estado_trans;
+  reg [1:0]  estado_trans, prox_estado_trans;
   reg [15:0] dato_trans, prox_dato_trans;
   reg [4:0]  cuenta_bits, prox_cuenta_bits; //Cuenta bits de la transacción
   reg [DIV_FREQ-1:0] div_freq;
@@ -83,18 +82,18 @@ module transmisor(
           prox_cuenta_bits = 0;
           CS=1;
       if (start_stb) begin 
-        prox_estado_trans = RESETEAR_REC;        
+        prox_estado_trans = TRANSMISSION;        
           end
         end
       
-      RESETEAR_REC:begin
+      /*RESETEAR_REC:begin
           if (div_freq<(2**DIV_FREQ)-1) nxt_reset_rec=0;//7
           else begin 
           nxt_reset_rec=1;
           prox_estado_trans=TRANSMISSION;
           end
             //CS=0; //para que se prenda de una vez, sino main y subnode se van a descoordinar  
-          end
+          end*/
 
       TRANSMISSION: begin  
         CS=0;

@@ -20,7 +20,7 @@ module receptor(
 
   assign edge_c = (CKP==CPH)? 1:0;//leemos en el flanco creciente?
   //Fip flops
-  always @(posedge SCK || reset) begin
+  always @(posedge SCK || ~reset_rec) begin
   if (edge_c)begin
     if (~reset_rec) begin
       estado_rec        <= IDLE;
@@ -65,7 +65,11 @@ module receptor(
     case (estado_rec)
       IDLE:begin
         prox_cuenta_bits = 0; 
-      if (~CS)  prox_estado_rec = TRANSMISSION;
+      if (~CS)  begin prox_estado_rec = TRANSMISSION; 
+          nxt_MISO = dato_recep[15]; //iniciamos todo para que los datos se envien y reciban al mismo tiempo
+          prox_dato_recep= (dato_recep<<1)+MOSI;
+          prox_cuenta_bits = cuenta_bits+1;
+        end
         end
       TRANSMISSION: 
         begin

@@ -24,7 +24,7 @@ initial begin
   start_stb = 0;
   #25 reset = 0;
   #10 reset = 1;
-  #20 start_stb = 1;
+  #30 start_stb = 1;
   #10 start_stb = 0;
   #4000 $finish;
 end
@@ -39,7 +39,7 @@ receptor U0 (
 	     // Outputs
 	     .MISO			(MISO),
 	     // Inputs
-	     .reset_rec			(reset_rec),
+	     .reset_rec			(reset),
 	     .CKP			(CKP),
 	     .CPH			(CPH),
 	     .MOSI			(MOSI),
@@ -52,7 +52,7 @@ transmisor U1 (
 	       // Outputs
 	       .MOSI			(MOSI),
 	       .SCK			(SCK),
-		   .reset_rec			(reset_rec),
+		   //.reset_rec			(reset_rec),
 	       // Inputs
 	       .clk			(clk),
 	       .reset			(reset),
