@@ -91,7 +91,6 @@ module transmisor(
           if (cuenta_bits == 16) prox_estado_trans = IDLE;
           else begin 
             if (((edge_c)&&(div_freq == (2**(DIV_FREQ-1))-1)) || ((~edge_c)&&(div_freq == (2**(DIV_FREQ))-1))) prox_cuenta_bits = cuenta_bits+1;
-
           end
         end
       default:  

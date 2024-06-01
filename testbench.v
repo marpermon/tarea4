@@ -17,6 +17,7 @@ end
 
 
 initial begin
+  //Prueba 1: Modo0
   clk = 0;
   reset = 1;
   CKP=0;
@@ -24,10 +25,21 @@ initial begin
   start_stb = 0;
   #25 reset = 0;
   #10 reset = 1;
-  #30 start_stb = 1;
+  #60 start_stb = 1;
   #10 start_stb = 0;
-  #1500 
-  #30 start_stb = 1;
+  //Prueba 2: Modo1
+  #1500 CPH=1;
+  #60 start_stb = 1;
+  #10 start_stb = 0;
+  //Prueba 3: Modo2
+  #1500 CKP=1;
+  CPH=0;
+  #60 start_stb = 1;
+  #10 start_stb = 0;
+  //Prueba 4: Modo3
+  #1500 CKP=1;
+  CPH=1;
+  #60 start_stb = 1;
   #10 start_stb = 0;
   #1500 $finish;
 end
