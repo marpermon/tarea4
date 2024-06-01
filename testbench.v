@@ -7,7 +7,7 @@ module mdio_tb;
 
 reg         clk, reset, start_stb, CKP, CPH;
 
-wire        MISO, MOSI, SCK, CS, reset_rec;
+wire        MISO, MOSI, SCK, CS;
 
 initial begin
 	$dumpfile("resultados.vcd");
@@ -26,7 +26,10 @@ initial begin
   #10 reset = 1;
   #30 start_stb = 1;
   #10 start_stb = 0;
-  #4000 $finish;
+  #1500 
+  #30 start_stb = 1;
+  #10 start_stb = 0;
+  #1500 $finish;
 end
 
 always begin
@@ -39,7 +42,7 @@ receptor U0 (
 	     // Outputs
 	     .MISO			(MISO),
 	     // Inputs
-	     .reset_rec			(reset),
+	     .reset			(reset),
 	     .CKP			(CKP),
 	     .CPH			(CPH),
 	     .MOSI			(MOSI),
@@ -52,7 +55,7 @@ transmisor U1 (
 	       // Outputs
 	       .MOSI			(MOSI),
 	       .SCK			(SCK),
-		   //.reset_rec			(reset_rec),
+		   //.reset			(reset),
 	       // Inputs
 	       .clk			(clk),
 	       .reset			(reset),
